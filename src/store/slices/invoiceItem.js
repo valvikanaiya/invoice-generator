@@ -20,6 +20,7 @@ const itemsSlice = createSlice({
     amountPaid: null,
     balanceDueLabel: "Balance Due",
     balanceDue: 0,
+    currency: "USD",
     invoiceItems: [
       {
         id: new Date().toLocaleString(),
@@ -39,6 +40,7 @@ const itemsSlice = createSlice({
         rate: 0,
         amount: 0,
       });
+      recalculateInvoice(state);
     },
     removeItem: (state, action) => {
       state.invoiceItems = state.invoiceItems.filter(
@@ -82,6 +84,7 @@ const itemsSlice = createSlice({
     },
     setDiscountType: (state, action) => {
       state.discountType = action.payload;
+      recalculateInvoice(state);
     },
     setTax: (state, action) => {
       state.tax = action.payload;
@@ -92,6 +95,7 @@ const itemsSlice = createSlice({
     },
     setTaxType: (state, action) => {
       state.taxType = action.payload;
+      recalculateInvoice(state);
     },
     setShipping: (state, action) => {
       state.shipping = action.payload;
@@ -102,6 +106,10 @@ const itemsSlice = createSlice({
     },
     setShippingType: (state, action) => {
       state.shippingType = action.payload;
+      recalculateInvoice(state);
+    },
+    setCurrency: (state, action) => {
+      state.currency = action.payload;
     },
   },
 });
@@ -160,5 +168,6 @@ export const {
   setShipping,
   setShippingLabel,
   setShippingType,
+  setCurrency,
 } = itemsSlice.actions;
 export default itemsSlice.reducer;
