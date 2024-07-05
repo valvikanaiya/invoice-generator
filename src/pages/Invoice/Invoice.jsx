@@ -18,6 +18,7 @@ import InvoiceDetails from "../../components/InvoiceDetails/InvoiceDetails";
 import ItemList from "../../components/ItemList/ItemList";
 import InvoiceDescription from "../../components/InvoiceDescription/InvoiceDescription";
 import Billing from "../../components/Billing/Billing";
+import SideBar from "../../components/SideBar/SideBar";
 
 const Invoice = () => {
   const [lableValue, setLableValue] = useState(initialInvoiceLabelData);
@@ -87,12 +88,13 @@ const Invoice = () => {
         </div>
       </div>
       <div className="col-span-12 lg:col-span-2 rounded p-4">
-        <button
+        <SideBar />
+        {/* <button
           className="border-none"
           onClick={() => dispatch(resetInvoice())}
         >
           Reset
-        </button>
+        </button> */}
       </div>
     </div>
   );

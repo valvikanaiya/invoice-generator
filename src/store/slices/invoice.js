@@ -39,7 +39,6 @@ const invoiceSlice = createSlice({
     setInvoicePaymentDetails: (state, action) => {
       const mewState = { ...state, ...action.payload };
       state = mewState;
-      console.log(state);
     },
     setInvoiceFrom: (state, action) => {
       state.form = action.payload;
@@ -47,12 +46,9 @@ const invoiceSlice = createSlice({
     setInvoiceDescription: (state, action) => {
       const mewState = { ...state, ...action.payload };
       state = mewState;
-      console.log(state);
     },
     resetInvoice: (state, action) => {
-      console.log("resetForm");
       state = initialState;
-      console.log("resetForm", state);
     },
   },
 });

@@ -23,6 +23,7 @@ const Field = ({
   onValueChange,
   removeField,
   field,
+  currency,
 }) => (
   <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-2 items-center mb-2">
     <input
@@ -35,7 +36,7 @@ const Field = ({
     <div className="col-span-2 text-gray-600 flex gap-2">
       <div className="border-2 flex items-center rounded">
         <div className="flex flex-auto items-center justify-between border-r-2 px-2">
-          {type === "$" && <span>$</span>}
+          {type === "$" && <span>{currency}</span>}
           <input
             type="text"
             className="w-[8rem] text-sm py-2 px-3 rounded focus:outline-none"
@@ -57,6 +58,7 @@ const Field = ({
 );
 
 const ButtonField = () => {
+  const { currency } = useSelector((state) => state.billing);
   const dispatch = useDispatch();
   const fields = useSelector((state) => ({
     discount: {
@@ -168,6 +170,7 @@ const ButtonField = () => {
                   onLabelChange={(label) => handleLabelChange(field, label)}
                   removeField={handleRemoveField}
                   field={field}
+                  currency={`${currency.symbol}`}
                 />
               </div>
             )

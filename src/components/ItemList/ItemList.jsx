@@ -7,7 +7,7 @@ import {
   updateItem,
 } from "../../store/slices/invoiceItem";
 const ItemList = () => {
-  const { invoiceItems } = useSelector((state) => state.billing);
+  const { invoiceItems, currency } = useSelector((state) => state.billing);
 
   const dispatch = useDispatch();
 
@@ -25,11 +25,11 @@ const ItemList = () => {
 
   return (
     <div className="py-4">
-      <div className="grid grid-cols-12 bg-teal-500  text-white p-2 rounded">
+      <div className="grid grid-cols-12 bg-teal-500 gap-4  text-white p-2 rounded">
         <span className="col-span-7 text-left">Item</span>
         <span className="col-span-1 text-center">Quantity</span>
         <span className="col-span-2 text-center">Rate</span>
-        <span className="col-span-2 text-center">Amount</span>
+        <span className="col-span-2 text-left">Amount</span>
       </div>
       {invoiceItems?.map((item, index) => (
         <div
@@ -62,7 +62,7 @@ const ItemList = () => {
             className="text-sm col-span-2 p-2 border border-gray-300 rounded focus:outline-gray-200 focus:outline-1"
           />
           <span className="text-sm col-span-2 text-center flex items-center justify-between gap-2">
-            {`US$ ${item.amount.toFixed(2)}`}
+            {`${currency.code}${currency.symbol} ${item.amount.toFixed(2)}`}
             {invoiceItems.length > 1 && (
               <button
                 onClick={() => handleRemoveItem(item.id)}

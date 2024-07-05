@@ -20,7 +20,7 @@ const itemsSlice = createSlice({
     amountPaid: null,
     balanceDueLabel: "Balance Due",
     balanceDue: 0,
-    currency: "USD",
+    currency: { code: "USD", symbol: "$", name: "US Dollar" },
     invoiceItems: [
       {
         id: new Date().toLocaleString(),

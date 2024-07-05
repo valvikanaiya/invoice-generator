@@ -20,6 +20,7 @@ const Billing = () => {
     balanceDue,
     anountPaid,
     amountPaidLabel,
+    currency,
   } = useSelector((state) => state.billing);
 
   return (
@@ -39,7 +40,7 @@ const Billing = () => {
           onChange={(e) => setAmountPaidLabel(e.target.value)}
         />
         <div className="col-span-2 border rounded flex">
-          <span className="py-1 px-3 bg-gray-100">$</span>
+          <span className="py-1 px-3 bg-gray-100">{currency.symbol}</span>
           <input
             className="text-sm  w-full  py-2 px-3  rounded focus:outline-none"
             type={"text"}
