@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "../TextField/TextField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setAmountPaid,
   setAmountPaidLabel,
@@ -22,6 +22,7 @@ const Billing = () => {
     amountPaidLabel,
     currency,
   } = useSelector((state) => state.billing);
+  const dispatch = useDispatch();
 
   return (
     <div className="py-4">
@@ -37,7 +38,7 @@ const Billing = () => {
           className="lg:text-right col-span-3 py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
           type="text"
           value={amountPaidLabel}
-          onChange={(e) => setAmountPaidLabel(e.target.value)}
+          onChange={(e) => dispatch(setAmountPaidLabel(e.target.value))}
         />
         <div className="col-span-2 border rounded flex">
           <span className="py-1 px-3 bg-gray-100">{currency.symbol}</span>
@@ -45,7 +46,7 @@ const Billing = () => {
             className="text-sm  w-full  py-2 px-3  rounded focus:outline-none"
             type={"text"}
             value={anountPaid}
-            onChange={(e) => setAmountPaid(e.target.value)}
+            onChange={(e) => dispatch(setAmountPaid(e.target.value))}
           />
         </div>
       </div>

@@ -27,19 +27,19 @@ const Field = ({
 }) => (
   <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-2 items-center mb-2">
     <input
-      className="text-right col-span-3 py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
+      className="lg:text-right lg:col-span-3 py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
       type="text"
       value={label}
       onChange={(e) => onLabelChange(e.target.value)}
       placeholder="Enter title"
     />
-    <div className="col-span-2 text-gray-600 flex gap-2">
+    <div className="lg:col-span-2 text-gray-600 flex gap-2">
       <div className="border-2 flex items-center rounded">
         <div className="flex flex-auto items-center justify-between border-r-2 px-2">
           {type === "$" && <span>{currency}</span>}
           <input
             type="text"
-            className="w-[8rem] text-sm py-2 px-3 rounded focus:outline-none"
+            className="lg:w-[8rem] text-sm py-2 px-3 rounded focus:outline-none"
             value={value}
             onChange={(e) => onValueChange(e.target.value)}
           />
@@ -52,7 +52,12 @@ const Field = ({
           <img className="w-4 h-4" src={ChangeType} alt="" />
         </button>
       </div>
-      <button onClick={() => removeField(field)}>x</button>
+      <button
+        className="hover:text-red-700 font-bold text-xl transition text-indigo-700"
+        onClick={() => removeField(field)}
+      >
+        x
+      </button>
     </div>
   </div>
 );
@@ -182,7 +187,7 @@ const ButtonField = () => {
             !activeFields[field] && (
               <button
                 key={field}
-                className="text-teal-500 text-sm"
+                className="text-indigo-500 font-semibold text-sm hover:text-indigo-700"
                 onClick={() => handleButtonClick(field)}
               >
                 + {fields[field].buttonLabel}
