@@ -10,7 +10,7 @@ export default function TextAreaInput({
   return (
     <div className="flex flex-col gap-2">
       <input
-        className="py-2 px-3 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
+        className="py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
         type="text"
         name={labelName}
         value={lableValue[labelName]}

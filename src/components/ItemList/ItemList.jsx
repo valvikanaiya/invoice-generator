@@ -7,8 +7,8 @@ import {
   updateItem,
 } from "../../store/slices/invoiceItem";
 const ItemList = () => {
-  const invoiceItems = useSelector((state) => state.invoiceItems);
-  console.log(invoiceItems);
+  const { invoiceItems } = useSelector((state) => state.billing);
+
   const dispatch = useDispatch();
 
   const handleAddItem = () => {
@@ -61,8 +61,8 @@ const ItemList = () => {
             }
             className="text-sm col-span-2 p-2 border border-gray-300 rounded focus:outline-gray-200 focus:outline-1"
           />
-          <span className="text-sm col-span-2 text-center flex items-center justify-center gap-2">
-            {`US$${item.amount.toFixed(2)}`}
+          <span className="text-sm col-span-2 text-center flex items-center justify-between gap-2">
+            {`US$ ${item.amount.toFixed(2)}`}
             {invoiceItems.length > 1 && (
               <button
                 onClick={() => handleRemoveItem(item.id)}
@@ -76,7 +76,7 @@ const ItemList = () => {
       ))}
       <button
         onClick={handleAddItem}
-        className="mt-4 p-2 bg-teal-500 text-white rounded hover:bg-teal-700"
+        className="mt-4 p-2 bg-teal-500 text-white rounded hover:bg-teal-700 transition-all"
       >
         + Line Item
       </button>

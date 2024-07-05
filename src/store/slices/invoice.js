@@ -17,6 +17,10 @@ const initialState = {
   billTo: null,
   shipTo: null,
   form: null,
+  notesLabel: "Notes",
+  notes: "",
+  termsLabel: "Terms",
+  terms: "",
 };
 
 const invoiceSlice = createSlice({
@@ -39,6 +43,11 @@ const invoiceSlice = createSlice({
     },
     setInvoiceFrom: (state, action) => {
       state.form = action.payload;
+    },
+    setInvoiceDescription: (state, action) => {
+      const mewState = { ...state, ...action.payload };
+      state = mewState;
+      console.log(state);
     },
     resetInvoice: (state, action) => {
       console.log("resetForm");

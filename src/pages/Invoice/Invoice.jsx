@@ -16,6 +16,8 @@ import {
 } from "../../store/slices/invoice";
 import InvoiceDetails from "../../components/InvoiceDetails/InvoiceDetails";
 import ItemList from "../../components/ItemList/ItemList";
+import InvoiceDescription from "../../components/InvoiceDescription/InvoiceDescription";
+import Billing from "../../components/Billing/Billing";
 
 const Invoice = () => {
   const [lableValue, setLableValue] = useState(initialInvoiceLabelData);
@@ -32,7 +34,7 @@ const Invoice = () => {
 
   return (
     <div className="grid-row-2  grid grid-cols-12 gap-4  mt-6 p-4  ">
-      <div className=" col-span-12 lg:col-span-9 shadow-lg rounded p-4 border">
+      <div className=" col-span-12 lg:col-span-10 shadow-lg rounded p-4 border">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-6 lg:col-span-7">
             <FileInput />
@@ -42,7 +44,7 @@ const Invoice = () => {
             <div className="flex flex-col justify-between items-end">
               <input
                 type="text"
-                className="text-gray-600 w-full text-4xl text-right py-1 px-2 focus:outline-gray-200 focus:outline-1 mb-2"
+                className="text-gray-600 border border-transparent hover:border-gray-200 w-full text-4xl text-right py-1 px-2 focus:outline-gray-200 focus:outline-1 mb-2"
                 onChange={(e) => dispatch(setInvoiceName(e.target.value))}
                 value={invoiceName}
               />
@@ -72,12 +74,19 @@ const Invoice = () => {
             </div>
           </div>
         </div>
-        <hr />
         <div>
           <ItemList />
         </div>
+        <div className="grid grid-cols-2 gap-4 py-4 ">
+          <div className="flex flex-col gap-4">
+            <InvoiceDescription />
+          </div>
+          <div className="">
+            <Billing />
+          </div>
+        </div>
       </div>
-      <div className="col-span-12 lg:col-span-3 shadow-lg rounded p-4 border">
+      <div className="col-span-12 lg:col-span-2 rounded p-4">
         <button
           className="border-none"
           onClick={() => dispatch(resetInvoice())}

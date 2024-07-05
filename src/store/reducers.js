@@ -11,7 +11,7 @@ import invoiceItemReducer from "./slices/invoiceItem";
 
 const rootReducer = combineReducers({
   invoice: invoiceReducer,
-  invoiceItems: invoiceItemReducer,
+  billing: invoiceItemReducer,
   //   invoice: persistReducer(invoicePersistConfig, invoiceReducer),
 });
 
