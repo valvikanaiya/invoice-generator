@@ -24,7 +24,7 @@ const ItemList = () => {
   };
 
   return (
-    <div className="lg:py-4">
+    <div className="lg:py-4 border-t mt-8 md:mt-0 md:border-t-0">
       <div className="hidden md:grid grid-cols-8 md:grid-cols-12 bg-indigo-500 gap-4  text-white md:p-2 rounded">
         <span className="col-span-2 md:col-span-7 text-left">Item</span>
         <span className="col-span-3 md:col-span-1 text-center">Quantity</span>
@@ -34,8 +34,7 @@ const ItemList = () => {
       {invoiceItems?.map((item, index) => (
         <div
           key={index}
-          className="grid grid-cols-12 gap-4 justify-between items-center md:p-2"
-        >
+          className="grid grid-cols-12 gap-4 justify-between items-center mt-4 md:mt-0 md:p-2">
           <input
             type="text"
             placeholder="Description of item/service..."
@@ -69,8 +68,7 @@ const ItemList = () => {
             {invoiceItems.length > 1 && (
               <button
                 onClick={() => handleRemoveItem(item.id)}
-                className="ml-2 p-2 group"
-              >
+                className="ml-2 p-2 group">
                 <img className="group " src={RemoveIcon} alt="Remove" />
               </button>
             )}
@@ -79,8 +77,7 @@ const ItemList = () => {
       ))}
       <button
         onClick={handleAddItem}
-        className="mt-4 p-2 w-full md:w-auto bg-indigo-500 text-white rounded hover:bg-indigo-700 transition-all"
-      >
+        className="mt-4 p-2 w-full md:w-auto bg-indigo-500 text-white rounded hover:bg-indigo-700 transition-all">
         + Line Item
       </button>
     </div>

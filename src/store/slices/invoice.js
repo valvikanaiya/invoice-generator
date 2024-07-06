@@ -5,13 +5,13 @@ const initialState = {
   invoiceName: "INVOICE",
   invoiceNumber: 1,
   invoiceDate: null,
-  invoiceDateLabel: null,
+  invoiceDateLabel: "Date",
   invoiceDueDate: null,
-  invoiceDueDateLabel: null,
+  invoiceDueDateLabel: "Due Date",
   paymentTerms: null,
-  paymentTermsLabel: null,
+  paymentTermsLabel: "Payment Terms",
   poNumber: null,
-  poNumberLabel: null,
+  poNumberLabel: "PO Number",
   billToLabel: "Bill To",
   shipToLabel: "Ship To",
   billTo: null,
@@ -36,17 +36,58 @@ const invoiceSlice = createSlice({
     setInvoiceNumber: (state, action) => {
       state.invoiceNumber = action.payload;
     },
-    setInvoicePaymentDetails: (state, action) => {
-      const mewState = { ...state, ...action.payload };
-      state = mewState;
+    setDate: (state, action) => {
+      state.invoiceDate = action.payload;
+    },
+    setDateLabel: (state, action) => {
+      state.invoiceDateLabel = action.payload;
+    },
+    setPaymentTerms: (state, action) => {
+      state.paymentTerms = action.payload;
+    },
+    setPaymentTermsLabel: (state, action) => {
+      state.paymentTermsLabel = action.payload;
+    },
+    setInvoiceDueDate: (state, action) => {
+      state.invoiceDueDate = action.payload;
+    },
+    setInvoiceDueDateLabel: (state, action) => {
+      state.invoiceDueDateLabel = action.payload;
+    },
+    setPoNumber: (state, action) => {
+      state.poNumber = action.payload;
+    },
+    setPoNumberLabel: (state, action) => {
+      state.poNumberLabel = action.payload;
+    },
+    setBillTo: (state, action) => {
+      state.billTo = action.payload;
+    },
+    setBillToLabel: (state, action) => {
+      state.billToLabel = action.payload;
+    },
+    setShipTo: (state, action) => {
+      state.shipTo = action.payload;
+    },
+    setShipToLabel: (state, action) => {
+      state.shipToLabel = action.payload;
     },
     setInvoiceFrom: (state, action) => {
       state.form = action.payload;
     },
-    setInvoiceDescription: (state, action) => {
-      const mewState = { ...state, ...action.payload };
-      state = mewState;
+    setNotes: (state, action) => {
+      state.notes = action.payload;
     },
+    setNotesLabel: (state, action) => {
+      state.notesLabel = action.payload;
+    },
+    setTerms: (state, action) => {
+      state.terms = action.payload;
+    },
+    setTermsLabel: (state, action) => {
+      state.termsLabel = action.payload;
+    },
+
     resetInvoice: (state, action) => {
       state = initialState;
     },
@@ -57,7 +98,22 @@ export const {
   setLogo,
   setInvoiceName,
   setInvoiceNumber,
-  setInvoicePaymentDetails,
+  setDate,
+  setDateLabel,
+  setPaymentTerms,
+  setPaymentTermsLabel,
+  setInvoiceDueDate,
+  setInvoiceDueDateLabel,
+  setPoNumber,
+  setPoNumberLabel,
+  setBillTo,
+  setBillToLabel,
+  setShipTo,
+  setShipToLabel,
+  setNotes,
+  setNotesLabel,
+  setTerms,
+  setTermsLabel,
   setInvoiceFrom,
   resetInvoice,
 } = invoiceSlice.actions;

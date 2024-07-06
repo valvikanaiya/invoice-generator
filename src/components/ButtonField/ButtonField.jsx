@@ -13,7 +13,7 @@ import {
 } from "../../store/slices/invoiceItem";
 
 import ChangeType from "@assets/icons/change-icon.svg";
-
+import CloseIcon from "@assets/icons/cancel-Icon.svg";
 const Field = ({
   label,
   type,
@@ -25,38 +25,40 @@ const Field = ({
   field,
   currency,
 }) => (
-  <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-2 items-center mb-2">
+  <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center mb-2">
     <input
-      className="lg:text-right lg:col-span-3 py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
+      className="lg:text-right  py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
       type="text"
       value={label}
       onChange={(e) => onLabelChange(e.target.value)}
       placeholder="Enter title"
     />
-    <div className="lg:col-span-2 text-gray-600 flex gap-2">
-      <div className="border-2 flex items-center rounded">
-        <div className="flex flex-auto items-center justify-between border-r-2 px-2">
-          {type === "$" && <span>{currency}</span>}
+    <div className=" text-gray-600 flex gap-2">
+      <div className="border-2 w-full flex justify-between items-center rounded">
+        <div className="col-span-5 flex-1 grid grid-cols-12 items-center justify-between border-r-2 px-2">
+          <span className="col-span-1">{type === "$" && currency}</span>
           <input
             type="text"
-            className="lg:w-[8rem] text-sm py-2 px-3 rounded focus:outline-none"
+            className=" col-span-10 text-sm py-2 px-3 rounded focus:outline-none"
             value={value}
             onChange={(e) => onValueChange(e.target.value)}
           />
-          {type === "%" && <span>%</span>}
+          <span className="col-span-1 text-end">{type === "%" && <>%</>}</span>
         </div>
         <button
-          className="w-[28px] flex items-center justify-center"
-          onClick={onTypeToggle}
-        >
+          className="col-span-1 px-3  flex items-center justify-center"
+          onClick={onTypeToggle}>
           <img className="w-4 h-4" src={ChangeType} alt="" />
         </button>
       </div>
       <button
-        className="hover:text-red-700 font-bold text-xl transition text-indigo-700"
-        onClick={() => removeField(field)}
-      >
-        x
+        className="group :hover:text-red-700 font-bold text-xl transition text-indigo-700"
+        onClick={() => removeField(field)}>
+        <img
+          className="filter grayscale hover:filter-none transition"
+          src={CloseIcon}
+          alt=""
+        />
       </button>
     </div>
   </div>
@@ -164,8 +166,7 @@ const ButtonField = () => {
             activeFields[field] && (
               <div
                 className="flex justify-end w-full gap-3 items-center"
-                key={field}
-              >
+                key={field}>
                 <Field
                   label={fields[field].label}
                   type={fields[field].type}
@@ -188,8 +189,7 @@ const ButtonField = () => {
               <button
                 key={field}
                 className="text-indigo-500 font-semibold text-sm hover:text-indigo-700"
-                onClick={() => handleButtonClick(field)}
-              >
+                onClick={() => handleButtonClick(field)}>
                 + {fields[field].buttonLabel}
               </button>
             )

@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from "react";
-import {
-  initialInvoiceLabelData,
-  intialInvocePymentData,
-  invoicePymentDetails,
-} from "../../utils/invoice";
-import Inputs from "@components/Inputs/Inputs";
-import FileInput from "../../components/FileInput/FileInput";
-
+import React from "react";
+import Inputs, { LabelInputs } from "@components/Inputs/Inputs";
+import FileInput from "@components/FileInput/FileInput";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  resetInvoice,
+  setDate,
+  setDateLabel,
   setInvoiceName,
   setInvoiceNumber,
-  setInvoicePaymentDetails,
-} from "../../store/slices/invoice";
-import InvoiceDetails from "../../components/InvoiceDetails/InvoiceDetails";
-import ItemList from "../../components/ItemList/ItemList";
-import InvoiceDescription from "../../components/InvoiceDescription/InvoiceDescription";
-import Billing from "../../components/Billing/Billing";
-import SideBar from "../../components/SideBar/SideBar";
+  setPaymentTerms,
+  setPaymentTermsLabel,
+  setInvoiceDueDate,
+  setInvoiceDueDateLabel,
+  setPoNumber,
+  setPoNumberLabel,
+} from "@store/slices/invoice";
+import InvoiceDetails from "@components/InvoiceDetails/InvoiceDetails";
+import ItemList from "@components/ItemList/ItemList";
+import InvoiceDescription from "@components/InvoiceDescription/InvoiceDescription";
+import Billing from "@components/Billing/Billing";
+import SideBar from "@components/SideBar/SideBar";
 
 const Invoice = () => {
-  const [lableValue, setLableValue] = useState(initialInvoiceLabelData);
-  const [invoicePaymentDetail, setInvoicePaymentDetail] = useState(
-    intialInvocePymentData
-  );
   const dispatch = useDispatch();
-  const { invoiceName, invoiceNumber } = useSelector((state) => state.invoice);
-
-  useEffect(() => {
-    dispatch(setInvoicePaymentDetails(invoicePaymentDetail));
-    dispatch(setInvoicePaymentDetails(lableValue));
-  }, [invoicePaymentDetail, lableValue]);
-
+  const {
+    invoiceName,
+    invoiceNumber,
+    invoiceDate,
+    invoiceDateLabel,
+    paymentTerms,
+    paymentTermsLabel,
+    invoiceDueDate,
+    invoiceDueDateLabel,
+    poNumber,
+    poNumberLabel,
+  } = useSelector((state) => state.invoice);
   return (
     <div className="grid-row-2 grid grid-cols-12 md:gap-4  lg:mt-6 lg:p-4  ">
       <div className="col-span-12 lg:col-span-10 md:shadow-lg rounded p-4 md:border">
@@ -63,20 +64,54 @@ const Invoice = () => {
             <InvoiceDetails />
           </div>
 
-          <div className="col-span-12 lg:col-span-5 flex flex-col justify-between items-end">
-            <div className="py-4 w-full">
-              {invoicePymentDetails.map((item) => (
-                <Inputs
-                  key={item.label}
-                  type={item.type}
-                  labelName={item.labelName}
-                  inputName={item.inputName}
-                  setLableValue={setLableValue}
-                  lableValue={lableValue}
-                  inputValue={invoicePaymentDetail}
-                  setInputValue={setInvoicePaymentDetail}
-                />
-              ))}
+          <div className="col-span-12 lg:col-span-5  w-full">
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <LabelInputs
+                className="lg:text-right"
+                value={invoiceDateLabel}
+                onChange={(e) => dispatch(setDateLabel(e.target.value))}
+              />
+              <Inputs
+                type={"date"}
+                value={invoiceDate}
+                onChange={(e) => dispatch(setDate(e.target.value))}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <LabelInputs
+                className="lg:text-right"
+                value={paymentTermsLabel}
+                onChange={(e) => dispatch(setPaymentTermsLabel(e.target.value))}
+              />
+              <Inputs
+                type={"text"}
+                value={paymentTerms}
+                onChange={(e) => dispatch(setPaymentTerms(e.target.value))}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <LabelInputs
+                className="lg:text-right"
+                value={invoiceDueDateLabel}
+                onChange={(e) => setInvoiceDueDateLabel(e.target.value)}
+              />
+              <Inputs
+                type={"date"}
+                value={invoiceDueDate}
+                onChange={(e) => dispatch(setInvoiceDueDate(e.target.value))}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <LabelInputs
+                className="lg:text-right"
+                value={poNumberLabel}
+                onChange={(e) => dispatch(setPoNumberLabel(e.target.value))}
+              />
+              <Inputs
+                type={"text"}
+                value={poNumber}
+                onChange={(e) => dispatch(setPoNumber(e.target.value))}
+              />
             </div>
           </div>
         </div>

@@ -1,43 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TextAreaInput from "../TextAreaInput/TextAreaInput";
-const invoiceDescriptionData = [
-  {
-    labelName: "notesLabel",
-    inputName: "notes",
-    placeholder: "Notes - any relavent information not alredy covered",
-  },
-  {
-    labelName: "termsLabel",
-    inputName: "terms",
-    placeholder:
-      "Terms and conditions - late fees, payment methods, delevery schedule",
-  },
-];
+
+import {
+  setNotesLabel,
+  setNotes,
+  setTermsLabel,
+  setTerms,
+} from "@store/slices/invoice";
+import { LabelInputs } from "../Inputs/Inputs";
 const InvoiceDescription = () => {
   const { notesLabel, notes, termsLabel, terms } = useSelector(
     (state) => state.invoice
   );
-  const [lableValue, setLableValue] = useState({ notesLabel, termsLabel });
-  const [invoiceDescriptionValue, setInvoiceDescriptionValue] = useState({
-    notes,
-    terms,
-  });
+
+  const dispatch = useDispatch();
 
   return (
     <>
-      {invoiceDescriptionData.map((item) => (
-        <TextAreaInput
-          key={item.labelName}
-          labelName={item.labelName}
-          inputName={item.inputName}
-          setLableValue={setLableValue}
-          lableValue={lableValue}
-          inputValue={invoiceDescriptionValue}
-          setInputValue={setInvoiceDescriptionValue}
-          placeholder={item.placeholder}
+      <div className="flex flex-col gap-2">
+        <LabelInputs
+          value={notesLabel}
+          onChange={(e) => dispatch(setNotesLabel(e.target.value))}
         />
-      ))}
+        <TextAreaInput
+          value={notes}
+          setValue={setNotes}
+          placeholder={"Notes - any relavent information not alredy covered"}
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <LabelInputs
+          value={termsLabel}
+          onChange={(e) => dispatch(setTermsLabel(e.target.value))}
+        />
+        <TextAreaInput
+          value={terms}
+          setValue={setTerms}
+          placeholder={
+            "Terms and conditions - late fees, payment methods, delevery schedule"
+          }
+        />
+      </div>
     </>
   );
 };

@@ -9,6 +9,8 @@ import {
   setTotalLabel,
 } from "../../store/slices/invoiceItem";
 import ButtonField from "../ButtonField/ButtonField";
+import { LabelInputs } from "../Inputs/Inputs";
+
 
 const Billing = () => {
   const {
@@ -33,14 +35,13 @@ const Billing = () => {
       />
       <ButtonField />
       <TextField value={totalLabel} amount={total} setValue={setTotalLabel} />
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 items-center">
-        <input
-          className="lg:text-right col-span-3 py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
-          type="text"
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
+        <LabelInputs
+          className={"lg:text-right"}
           value={amountPaidLabel}
           onChange={(e) => dispatch(setAmountPaidLabel(e.target.value))}
         />
-        <div className="col-span-2 border rounded flex">
+        <div className=" border rounded flex">
           <span className="py-1 px-3 bg-gray-100">{currency.symbol}</span>
           <input
             className="text-sm  w-full  py-2 px-3  rounded focus:outline-none"
