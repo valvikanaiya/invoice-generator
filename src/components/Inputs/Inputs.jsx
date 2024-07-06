@@ -1,7 +1,7 @@
 export default function Inputs({ value, ...props }) {
   return (
     <input
-      className="text-sm border w-full text-gray-600 py-2 px-3  rounded focus:outline-gray-200 focus:outline-1"
+      className="bg-transparent text-sm border w-full text-gray-600 py-2 px-3  rounded focus:outline-gray-200 focus:outline-1"
       value={value}
       {...props}
     />

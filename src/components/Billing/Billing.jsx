@@ -11,7 +11,6 @@ import {
 import ButtonField from "../ButtonField/ButtonField";
 import { LabelInputs } from "../Inputs/Inputs";
 
-
 const Billing = () => {
   const {
     total,
