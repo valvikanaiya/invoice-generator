@@ -25,7 +25,7 @@ const Field = ({
   field,
   currency,
 }) => (
-  <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 items-center mb-2">
+  <div className="w-full felx grid grid-cols-1 lg:grid-cols-2 gap-2 items-center mb-2">
     <input
       className="lg:text-right  py-2 px-3 border border-transparent hover:border-gray-200 text-sm text-gray-600 font-light rounded focus:outline-gray-200 focus:outline-1"
       type="text"
@@ -34,19 +34,20 @@ const Field = ({
       placeholder="Enter title"
     />
     <div className=" text-gray-600 flex gap-2">
-      <div className="border-2 w-full flex justify-between items-center rounded">
-        <div className="col-span-5 flex-1 grid grid-cols-12 items-center justify-between border-r-2 px-2">
-          <span className="col-span-1">{type === "$" && currency}</span>
+      <div className="border-2 w-full grid grid-cols-6 items-center rounded">
+        <div className="col-span-5 w-full flex items-center justify-between border-r-2 px-2">
+          {type !== "%" && <span className="col-span-2"> {currency}</span>}
           <input
-            type="text"
-            className=" col-span-10 text-sm py-2 px-3 rounded focus:outline-none"
+            type="number"
+            className="col-span-10 w-full text-sm py-2 px-3 rounded focus:outline-none"
             value={value}
+            min={0}
             onChange={(e) => onValueChange(e.target.value)}
           />
-          <span className="col-span-1 text-end">{type === "%" && <>%</>}</span>
+          {type === "%" && <span className="col-span-2 text-end">%</span>}
         </div>
         <button
-          className="col-span-1 px-3  flex items-center justify-center"
+          className="col-span-1   flex items-center justify-center"
           onClick={onTypeToggle}>
           <img className="w-4 h-4" src={ChangeType} alt="" />
         </button>
@@ -65,33 +66,35 @@ const Field = ({
 );
 
 const ButtonField = () => {
-  const { currency } = useSelector((state) => state.billing);
+  const { currency, discount, tax, shipping } = useSelector(
+    (state) => state.billing
+  );
   const dispatch = useDispatch();
   const fields = useSelector((state) => ({
     discount: {
       buttonLabel: "Discount",
       label: state.billing.discountLabel,
       type: state.billing.discountType,
-      value: state.billing.discount,
+      value: discount,
     },
     tax: {
       buttonLabel: "Tax",
       label: state.billing.taxLabel,
       type: state.billing.taxType,
-      value: state.billing.tax,
+      value: tax,
     },
     shipping: {
       buttonLabel: "Shipping",
       label: state.billing.shippingLabel,
       type: state.billing.shippingType,
-      value: state.billing.shipping,
+      value: shipping,
     },
   }));
 
   const [activeFields, setActiveFields] = useState({
-    discount: false,
-    tax: false,
-    shipping: false,
+    discount: discount ? true : false,
+    tax: tax ? true : false,
+    shipping: shipping ? true : false,
   });
 
   const handleButtonClick = (field) => {
@@ -118,13 +121,13 @@ const ButtonField = () => {
     });
     if (field === "discount") {
       dispatch(setDiscountType(null));
-      dispatch(setDiscount(""));
+      dispatch(setDiscount(0));
     } else if (field === "tax") {
       dispatch(setTaxType(null));
-      dispatch(setTax(""));
+      dispatch(setTax(0));
     } else if (field === "shipping") {
       dispatch(setShippingType(null));
-      dispatch(setShipping(""));
+      dispatch(setShipping(0));
     }
   };
 

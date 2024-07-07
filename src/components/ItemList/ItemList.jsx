@@ -64,7 +64,7 @@ const ItemList = () => {
             />
           </span>
           <span className="text-sm col-span-12 md:col-span-2 text-center flex items-center justify-between gap-2">
-            {`${currency.code}${currency.symbol} ${item.amount.toFixed(2)}`}
+            {`${currency.code}${currency.symbol} ${item.amount?.toFixed(2)}`}
             {invoiceItems.length > 1 && (
               <button
                 onClick={() => handleRemoveItem(item.id)}

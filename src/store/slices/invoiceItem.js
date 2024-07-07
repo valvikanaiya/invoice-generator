@@ -141,9 +141,12 @@ const recalculateInvoice = (state) => {
     shippingAmount = state.shipping;
   }
 
-  const total = subtotal - discountAmount + taxAmount + shippingAmount;
+  const total =
+    subtotal -
+    Number(discountAmount) +
+    Number(taxAmount) +
+    Number(shippingAmount);
   const balanceDue = total - (state.amountPaid || 0);
-
   state.subtotal = subtotal;
   state.total = total;
   state.balanceDue = balanceDue;
