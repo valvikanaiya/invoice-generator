@@ -128,7 +128,7 @@ const itemsSlice = createSlice({
 const recalculateInvoice = (state) => {
   let subtotal = 0;
   state.invoiceItems.forEach((item) => {
-    subtotal += item.amount;
+    subtotal += Number(item.amount || 0);
   });
 
   let discountAmount = 0;
@@ -155,9 +155,9 @@ const recalculateInvoice = (state) => {
 
   const total =
     subtotal -
-    Number(discountAmount) +
-    Number(taxAmount) +
-    Number(shippingAmount);
+    Number(discountAmount || 0) +
+    Number(taxAmount || 0) +
+    Number(shippingAmount || 0);
   const balanceDue = total - (state.amountPaid || 0);
   state.subtotal = subtotal;
   state.total = total;

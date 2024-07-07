@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "../TextField/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,9 +24,9 @@ const Billing = () => {
     currency,
   } = useSelector((state) => state.billing);
   const dispatch = useDispatch();
-
+  const [error, setError] = useState({ amountPaidError: false });
   return (
-    <div className="py-4">
+    <div className="py-4 flex flex-col gap-2">
       <TextField
         value={subtotalLabel}
         amount={subtotal}
@@ -40,13 +40,25 @@ const Billing = () => {
           value={amountPaidLabel}
           onChange={(e) => dispatch(setAmountPaidLabel(e.target.value))}
         />
-        <div className=" border rounded flex">
-          <span className="py-1 px-3 bg-gray-100">{currency.symbol}</span>
+        <div
+          className={`border rounded flex ${
+            error.amountPaidError ? "border-red-500" : ""
+          }`}>
+          <span className="py-1 px-3 bg-gray-100 rounded">
+            {currency.symbol}
+          </span>
           <input
             className="text-sm  w-full  py-2 px-3  rounded focus:outline-none"
-            type={"text"}
+            type={"number"}
             value={anountPaid}
-            onChange={(e) => dispatch(setAmountPaid(e.target.value))}
+            min={0}
+            onChange={(e) => {
+              if (e.target.value > total)
+                setError((preve) => ({ ...preve, amountPaidError: true }));
+              else setError((preve) => ({ ...preve, amountPaidError: false }));
+
+              dispatch(setAmountPaid(e.target.value));
+            }}
           />
         </div>
       </div>

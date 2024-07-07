@@ -66,30 +66,39 @@ const Field = ({
 );
 
 const ButtonField = () => {
-  const { currency, discount, tax, shipping } = useSelector(
-    (state) => state.billing
-  );
+  const {
+    currency,
+    discount,
+    tax,
+    shipping,
+    discountLabel,
+    discountType,
+    taxLabel,
+    taxType,
+    shippingLabel,
+    shippingType,
+  } = useSelector((state) => state.billing);
   const dispatch = useDispatch();
-  const fields = useSelector((state) => ({
+  const fields = {
     discount: {
       buttonLabel: "Discount",
-      label: state.billing.discountLabel,
-      type: state.billing.discountType,
+      label: discountLabel,
+      type: discountType,
       value: discount,
     },
     tax: {
       buttonLabel: "Tax",
-      label: state.billing.taxLabel,
-      type: state.billing.taxType,
+      label: taxLabel,
+      type: taxType,
       value: tax,
     },
     shipping: {
       buttonLabel: "Shipping",
-      label: state.billing.shippingLabel,
-      type: state.billing.shippingType,
+      label: shippingLabel,
+      type: shippingType,
       value: shipping,
     },
-  }));
+  };
 
   const [activeFields, setActiveFields] = useState({
     discount: discount ? true : false,

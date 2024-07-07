@@ -26,6 +26,7 @@ const InvoiceDescription = () => {
         <TextAreaInput
           value={notes}
           setValue={setNotes}
+          onChange={(e) => dispatch(setNotes(e.target.value))}
           placeholder={"Notes - any relavent information not alredy covered"}
         />
       </div>
@@ -37,6 +38,7 @@ const InvoiceDescription = () => {
         <TextAreaInput
           value={terms}
           setValue={setTerms}
+          onChange={(e) => dispatch(setTerms(e.target.value))}
           placeholder={
             "Terms and conditions - late fees, payment methods, delevery schedule"
           }

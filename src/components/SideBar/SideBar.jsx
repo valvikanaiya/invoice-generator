@@ -23,7 +23,13 @@ const SideBar = () => {
     Number(tax) < 0 ||
     Number(shipping) < 0 ||
     Number(discount) < 0 ||
-    Number(subtotal) <= 0;
+    Number(subtotal) <= 0 ||
+    invoice?.billTo === "" ||
+    invoice?.invoiceDate === "" ||
+    invoice?.form === "";
+
+  const paidAmount =
+    Number(billing.balanceDue) !== 0 ? invoice.invoiceDueDate === "" : false;
   const [showDraft, setShowDraft] = useState(false);
   const defaultInvoice = JSON.parse(localStorage.getItem("invoice"));
   const defaultBillig = JSON.parse(localStorage.getItem("billing"));
@@ -32,7 +38,7 @@ const SideBar = () => {
 
   const billingEqual = _.isEqual(copyBiling, copydefultBillig);
   const invoiceEqual = _.isEqual(invoice, defaultInvoice);
-  console.log(invoiceEqual);
+
   useEffect(() => {
     if (invoiceEqual && billingEqual) {
       setShowDraft(false);
@@ -50,7 +56,7 @@ const SideBar = () => {
       <CurrencyDropdown />
       <button
         className="bg-green-600 mt-4 p-4 w-full rounded hover:bg-green-700 font-semibold text-white transition-all disabled:bg-gray-600"
-        disabled={isDesebled}
+        disabled={isDesebled || paidAmount}
         onClick={() => handlePrint(null, () => componentRef.current)}>
         Download
       </button>
