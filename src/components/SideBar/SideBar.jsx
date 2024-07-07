@@ -1,14 +1,18 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CurrencyDropdown from "../CurrencyDropdown/CurrencyDropdown";
 import DownloadPDF from "../../pages/downloadPdf/DownloadPDF";
 import { useReactToPrint } from "react-to-print";
 import { useSelector } from "react-redux";
+import _ from "lodash";
 
 const SideBar = () => {
   const componentRef = useRef();
   const { tax, shipping, discount, subtotal } = useSelector(
     (state) => state.billing
   );
+  const invoice = useSelector((state) => state.invoice);
+  const billing = useSelector((state) => state.billing);
+  const invoiceState = { ...invoice, ...billing };
   const handlePrint = useReactToPrint({
     documentTitle: "Print This Document",
     onBeforePrint: () => console.log("before printing..."),
@@ -20,7 +24,27 @@ const SideBar = () => {
     Number(shipping) < 0 ||
     Number(discount) < 0 ||
     Number(subtotal) <= 0;
-  console.log(isDesebled);
+  const [showDraft, setShowDraft] = useState(false);
+  const defaultInvoice = JSON.parse(localStorage.getItem("invoice"));
+  const defaultBillig = JSON.parse(localStorage.getItem("billing"));
+  const copyBiling = _.omit(billing, "invoiceItems");
+  const copydefultBillig = _.omit(defaultBillig, "invoiceItems");
+
+  const billingEqual = _.isEqual(copyBiling, copydefultBillig);
+  const invoiceEqual = _.isEqual(invoice, defaultInvoice);
+  console.log(invoiceEqual);
+  useEffect(() => {
+    if (invoiceEqual && billingEqual) {
+      setShowDraft(false);
+    } else {
+      setShowDraft(true);
+    }
+  }, [invoice, billing]);
+  const setToDefault = () => {
+    localStorage.setItem("invoice", JSON.stringify(invoice));
+    localStorage.setItem("billing", JSON.stringify(billing));
+    setShowDraft(false);
+  };
   return (
     <div>
       <CurrencyDropdown />
@@ -33,6 +57,13 @@ const SideBar = () => {
       <div className="hidden">
         <DownloadPDF ref={componentRef} />
       </div>
+      {showDraft && (
+        <button
+          className="w-full mt-6 text-md font-bold text-green-600 hover:text-green-500 transition-all"
+          onClick={setToDefault}>
+          Save Default
+        </button>
+      )}
     </div>
   );
 };

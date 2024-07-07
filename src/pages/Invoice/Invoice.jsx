@@ -127,7 +127,7 @@ const Invoice = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-12 lg:col-span-2 md:border rounded p-4">
+      <div className="col-span-12 lg:col-span-2  rounded p-4">
         <SideBar />
         {/* <button
           className="border-none"

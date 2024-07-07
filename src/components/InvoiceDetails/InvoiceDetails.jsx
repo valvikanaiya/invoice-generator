@@ -10,7 +10,6 @@ import {
 } from "@store/slices/invoice";
 import { LabelInputs } from "../Inputs/Inputs";
 
-
 const InvoiceDetails = () => {
   const { form, billToLabel, shipToLabel, billTo, shipTo } = useSelector(
     (state) => state.invoice
@@ -26,7 +25,7 @@ const InvoiceDetails = () => {
           name={"from"}
           value={form}
           placeholder={"who is this from?"}
-          autocomplete="off"
+          autoComplete="off"
           onChange={(e) => dispatch(setInvoiceFrom(e.target.value))}></textarea>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-4">

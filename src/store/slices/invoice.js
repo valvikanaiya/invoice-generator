@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
+const defaultState = JSON.parse(localStorage.getItem("invoice"));
 
 const initialState = {
-  logo: null,
+  logo: "",
   invoiceName: "INVOICE",
   invoiceNumber: 1,
-  invoiceDate: null,
+  invoiceDate: "",
   invoiceDateLabel: "Date",
-  invoiceDueDate: null,
+  invoiceDueDate: "",
   invoiceDueDateLabel: "Due Date",
-  paymentTerms: null,
+  paymentTerms: "",
   paymentTermsLabel: "Payment Terms",
-  poNumber: null,
+  poNumber: "",
   poNumberLabel: "PO Number",
   billToLabel: "Bill To",
   shipToLabel: "Ship To",
-  billTo: null,
-  shipTo: null,
-  form: null,
+  billTo: "",
+  shipTo: "",
+  form: "",
   notesLabel: "Notes",
   notes: "",
   termsLabel: "Terms",
@@ -25,7 +26,7 @@ const initialState = {
 
 const invoiceSlice = createSlice({
   name: "invoice",
-  initialState,
+  initialState: defaultState || initialState,
   reducers: {
     setLogo: (state, action) => {
       state.logo = action.payload;

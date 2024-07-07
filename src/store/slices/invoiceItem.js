@@ -1,27 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const itemsSlice = createSlice({
-  name: "billing",
-  initialState: {
-    subtotalLabel: "Subtotal",
-    subtotal: 0,
-    totalLabel: "Total",
-    total: 0,
-    discountLabel: "Discount",
-    discount: 0,
-    discountType: "%",
-    taxLabel: "Tax",
-    tax: 0,
-    taxType: "%",
-    shippingLabel: "Shipping",
-    shipping: 0,
-    shippingType: "%",
-    amountPaidLabel: "Amount Paid",
-    amountPaid: null,
-    balanceDueLabel: "Balance Due",
-    balanceDue: 0,
-    currency: { code: "USD", symbol: "$", name: "US Dollar" },
-    invoiceItems: [
+const defaultState = JSON.parse(localStorage.getItem("billing"));
+defaultState
+  ? (defaultState.invoiceItems = [
       {
         id: new Date().toLocaleString(),
         itemName: "",
@@ -29,8 +9,40 @@ const itemsSlice = createSlice({
         rate: 0,
         amount: 0,
       },
-    ],
-  },
+    ])
+  : null;
+const initialState = {
+  subtotalLabel: "Subtotal",
+  subtotal: 0,
+  totalLabel: "Total",
+  total: 0,
+  discountLabel: "Discount",
+  discount: 0,
+  discountType: "%",
+  taxLabel: "Tax",
+  tax: 0,
+  taxType: "%",
+  shippingLabel: "Shipping",
+  shipping: 0,
+  shippingType: "%",
+  amountPaidLabel: "Amount Paid",
+  amountPaid: null,
+  balanceDueLabel: "Balance Due",
+  balanceDue: 0,
+  currency: { code: "USD", symbol: "$", name: "US Dollar" },
+  invoiceItems: [
+    {
+      id: new Date().toLocaleString(),
+      itemName: "",
+      quantity: 1,
+      rate: 0,
+      amount: 0,
+    },
+  ],
+};
+const itemsSlice = createSlice({
+  name: "billing",
+  initialState: initialState || defaultState,
   reducers: {
     addItem: (state) => {
       state.invoiceItems.push({
