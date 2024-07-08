@@ -68,55 +68,21 @@ export function calculateTotal(
   };
 }
 
+export function formatNumber(num) {
+  const isNegative = num < 0;
+  num = Math.abs(num); // Work with the absolute value for formatting
 
-  function applyDiscount(subtotal, discount, isPercentage = false) {
-    let discountAmount;
+  let formattedNumber;
 
-    if (isPercentage) {
-      // Calculate discount as a percentage of the subtotal
-      discountAmount = subtotal * (discount / 100);
-    } else {
-      // Fixed discount amount
-      discountAmount = discount;
-    }
-
-    // Calculate the total after applying the discount
-    const total = subtotal - discountAmount;
-
-    return total;
+  if (num >= 1e9) {
+    formattedNumber = (num / 1e9).toFixed(2) + "B"; // Billion
+  } else if (num >= 1e6) {
+    formattedNumber = (num / 1e6).toFixed(2) + "M"; // Million
+  } else if (num >= 1e3) {
+    formattedNumber = (num / 1e3).toFixed(2) + "k"; // Thousand
+  } else {
+    formattedNumber = num.toFixed(2); // Less than a thousand
   }
-  function applyDiscountAndTax(
-    subtotal,
-    discount,
-    isPercentageDiscount,
-    tax,
-    isPercentageTax
-  ) {
-    let discountAmount;
 
-    if (isPercentageDiscount) {
-      // Calculate discount as a percentage of the subtotal
-      discountAmount = subtotal * (discount / 100);
-    } else {
-      // Fixed discount amount
-      discountAmount = discount;
-    }
-
-    // Calculate the subtotal after applying the discount
-    const discountedSubtotal = subtotal - discountAmount;
-
-    let taxAmount;
-
-    if (isPercentageTax) {
-      // Calculate tax as a percentage of the discounted subtotal
-      taxAmount = discountedSubtotal * (tax / 100);
-    } else {
-      // Fixed tax amount
-      taxAmount = tax;
-    }
-
-    // Calculate the total after applying the discount and adding the tax
-    const total = discountedSubtotal + taxAmount;
-
-    return total;
-  }
+  return isNegative ? "-" + formattedNumber : formattedNumber;
+}

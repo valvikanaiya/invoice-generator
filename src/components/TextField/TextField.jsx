@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { formatNumber } from "../../utils/invoice";
 
 const TextField = ({ value, amount, setValue }) => {
   const { currency } = useSelector((state) => state.billing);
@@ -13,8 +14,8 @@ const TextField = ({ value, amount, setValue }) => {
         onChange={(e) => dispatch(setValue(e.target.value))}
       />
       <span className="text-sm block text-right">
-        {`${currency.code}${currency.symbol} ${Number(amount || 0)?.toFixed(
-          2
+        {`${currency.code}${currency.symbol} ${formatNumber(
+          Number(amount || 0)
         )}`}
       </span>
     </div>

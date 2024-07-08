@@ -10,6 +10,7 @@ import {
 } from "../../store/slices/invoiceItem";
 import ButtonField from "../ButtonField/ButtonField";
 import { LabelInputs } from "../Inputs/Inputs";
+import { formatNumber } from "../../utils/invoice";
 
 const Billing = () => {
   const {

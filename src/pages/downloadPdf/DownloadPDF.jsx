@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { useSelector } from "react-redux";
-import { calculateTotal } from "../../utils/invoice";
+import { calculateTotal, formatNumber } from "../../utils/invoice";
 
 const DownloadPDF = forwardRef((props, ref) => {
   const invoice = useSelector((state) => state.invoice);
@@ -124,7 +124,7 @@ const DownloadPDF = forwardRef((props, ref) => {
               <p className="text-right font-semibold">
                 {currency.code}
                 {currency.symbol}
-                {Number(balanceDue || 0)?.toFixed(2)}
+                {formatNumber(Number(balanceDue || 0))}
               </p>
             </div>
           </div>
@@ -147,7 +147,7 @@ const DownloadPDF = forwardRef((props, ref) => {
                 <span className="col-span-2 text-end">
                   {currency.code}
                   {currency.symbol}
-                  {Number(item.amount || 0).toFixed(2)}
+                  {formatNumber(Number(item.amount || 0))}
                 </span>
               </div>
             ) : null
@@ -159,7 +159,7 @@ const DownloadPDF = forwardRef((props, ref) => {
             <p className="text-right font-semibold">
               {currency.code}
               {currency.symbol}
-              {Number(subtotal || 0).toFixed(2)}
+              {formatNumber(Number(subtotal || 0))}
             </p>
           </div>
           {Number(discount) ? (
@@ -180,7 +180,7 @@ const DownloadPDF = forwardRef((props, ref) => {
               <p className="text-right font-semibold">
                 {currency.code}
                 {currency.symbol}
-                {Number(billings?.taxAmount)}
+                {formatNumber(Number(billings?.taxAmount || 0))}
               </p>
             </div>
           ) : null}
@@ -190,7 +190,7 @@ const DownloadPDF = forwardRef((props, ref) => {
               <p className="text-right font-semibold">
                 {currency.code}
                 {currency.symbol}
-                {Number(billings?.shippingAmount)}
+                {formatNumber(Number(billings?.shippingAmount || 0))}
               </p>
             </div>
           ) : null}
@@ -199,7 +199,7 @@ const DownloadPDF = forwardRef((props, ref) => {
             <p className="text-right font-semibold">
               {currency.code}
               {currency.symbol}
-              {Number(total || 0)?.toFixed(2)}
+              {formatNumber(Number(total || 0))}
             </p>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -207,7 +207,7 @@ const DownloadPDF = forwardRef((props, ref) => {
             <p className="text-right font-semibold">
               {currency.code}
               {currency.symbol}
-              {Number(amountPaid || 0)?.toFixed(2)}
+              {formatNumber(Number(amountPaid || 0))}
             </p>
           </div>
         </div>
