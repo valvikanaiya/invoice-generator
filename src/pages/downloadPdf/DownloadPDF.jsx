@@ -59,10 +59,15 @@ const DownloadPDF = forwardRef((props, ref) => {
     shipping,
     shippingType === "%"
   );
-
+  const pageStyle = `
+    @page {
+      margin: 1cm; /* Set margins as desired */
+      padding: 1cm; /* Set paddings as desired */
+    }
+  `;
   return (
     <>
-      <div className="mx-auto p-6" ref={ref}>
+      <div className="mx-auto" ref={ref}>
         <div className="grid grid-cols-2 gap-4">
           <div className=" w-52">
             {logo && (
@@ -144,7 +149,7 @@ const DownloadPDF = forwardRef((props, ref) => {
                 <span className="col-span-7">{item.itemName}</span>
                 <span className="col-span-1 text-end">{item.quantity}</span>
                 <span className="col-span-2 text-end">{item.rate}</span>
-                <span className="col-span-2 text-end">
+                <span className="col-span-2 text-end font-semibold">
                   {currency.code}
                   {currency.symbol}
                   {formatNumber(Number(item.amount || 0))}
@@ -229,6 +234,7 @@ const DownloadPDF = forwardRef((props, ref) => {
             )}
           </div>
         </div>
+        <style dangerouslySetInnerHTML={{ __html: pageStyle }} />
       </div>
     </>
   );
