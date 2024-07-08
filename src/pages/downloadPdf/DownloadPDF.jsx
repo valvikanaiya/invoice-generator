@@ -87,44 +87,46 @@ const DownloadPDF = forwardRef((props, ref) => {
                 <p className="font-semibold">{billTo}</p>
               </div>
               <div>
-                <p>{shipToLabel}</p>
-                <p className="font-semibold">{shipTo}</p>
+                {shipTo && (
+                  <>
+                    <p>{shipToLabel}</p>
+                    <p className="font-semibold">{shipTo}</p>
+                  </>
+                )}
               </div>
             </div>
           </div>
-          <div className="grid justify-end">
+          <div className="felx flex-col gap-4 justify-end items-start">
             <div className="grid grid-cols-2 gap-2">
               <p className="text-right">{invoiceDateLabel} :</p>
-              <p className="text-right">{invoiceDate}</p>
+              <p className="text-right font-semibold">{invoiceDate}</p>
             </div>
             {paymentTerms && (
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-right">{paymentTermsLabel} :</p>
-                <p className="text-right">{paymentTerms}</p>
+                <p className="text-right font-semibold">{paymentTerms}</p>
               </div>
             )}
             {invoiceDueDate && (
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-right">{invoiceDueDateLabel} :</p>
-                <p className="text-right">{invoiceDueDate}</p>
+                <p className="text-right font-semibold">{invoiceDueDate}</p>
               </div>
             )}
             {poNumber && (
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-right">{poNumberLabel} :</p>
-                <p className="text-right">{poNumber}</p>
+                <p className="text-right font-semibold">{poNumber}</p>
               </div>
             )}
-            {balanceDue && (
-              <div className="grid grid-cols-2 gap-2">
-                <p className="text-right">{balanceDueLabel}</p>
-                <p className="text-right">
-                  {currency.code}
-                  {currency.symbol}
-                  {Number(balanceDue || 0)?.toFixed(2)}
-                </p>
-              </div>
-            )}
+            <div className="grid grid-cols-2 gap-2 bg-gray-200 py-1 px-2 rounded">
+              <p className="text-right font-semibold">{balanceDueLabel}</p>
+              <p className="text-right font-semibold">
+                {currency.code}
+                {currency.symbol}
+                {Number(balanceDue || 0)?.toFixed(2)}
+              </p>
+            </div>
           </div>
         </div>
         <div className="mt-8">
@@ -135,7 +137,7 @@ const DownloadPDF = forwardRef((props, ref) => {
             <div className="block mt-0 col-span-2 text-end">Amount</div>
           </div>
           {invoiceItems?.map((item) =>
-            item.rate && item.itemName ? (
+            item.rate ? (
               <div
                 key={item.id}
                 className="grid grid-cols-12 py-2 px-4 rounded">
@@ -154,41 +156,47 @@ const DownloadPDF = forwardRef((props, ref) => {
         <div className="grid justify-end mt-8">
           <div className="grid grid-cols-2 gap-2">
             <p className="text-right">{subtotalLabel} :</p>
-            <p className="text-right">
+            <p className="text-right font-semibold">
               {currency.code}
               {currency.symbol}
               {Number(subtotal || 0).toFixed(2)}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            <p className="text-right">
-              {`${discountLabel} (${discount} ${discountType}) :`}
-            </p>
-            <p className="text-right">
-              {currency.code}
-              {currency.symbol}
-              {Number(billings?.discountAmount)}
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <p className="text-right">{`${taxLabel} (${tax} ${taxType}) :`}</p>
-            <p className="text-right">
-              {currency.code}
-              {currency.symbol}
-              {Number(billings?.taxAmount)}
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <p className="text-right">{`${shippingLabel} (${shipping} ${shippingType}) :`}</p>
-            <p className="text-right">
-              {currency.code}
-              {currency.symbol}
-              {Number(billings?.taxAmount)}
-            </p>
-          </div>
+          {Number(discount) ? (
+            <div className="grid grid-cols-2 gap-2">
+              <p className="text-right">
+                {`${discountLabel} (${discount} ${discountType}) :`}
+              </p>
+              <p className="text-right font-semibold">
+                {currency.code}
+                {currency.symbol}
+                {Number(billings?.discountAmount)}
+              </p>
+            </div>
+          ) : null}
+          {Number(tax) ? (
+            <div className="grid grid-cols-2 gap-2">
+              <p className="text-right">{`${taxLabel} (${tax} ${taxType}) :`}</p>
+              <p className="text-right font-semibold">
+                {currency.code}
+                {currency.symbol}
+                {Number(billings?.taxAmount)}
+              </p>
+            </div>
+          ) : null}
+          {shipping ? (
+            <div className="grid grid-cols-2 gap-2">
+              <p className="text-right">{`${shippingLabel} (${shipping} ${shippingType}) :`}</p>
+              <p className="text-right font-semibold">
+                {currency.code}
+                {currency.symbol}
+                {Number(billings?.shippingAmount)}
+              </p>
+            </div>
+          ) : null}
           <div className="grid grid-cols-2 gap-2">
             <p className="text-right">{`${totalLabel}  :`}</p>
-            <p className="text-right">
+            <p className="text-right font-semibold">
               {currency.code}
               {currency.symbol}
               {Number(total || 0)?.toFixed(2)}
@@ -196,7 +204,7 @@ const DownloadPDF = forwardRef((props, ref) => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <p className="text-right">{`${amountPaidLabel}  :`}</p>
-            <p className="text-right">
+            <p className="text-right font-semibold">
               {currency.code}
               {currency.symbol}
               {Number(amountPaid || 0)?.toFixed(2)}
@@ -205,12 +213,20 @@ const DownloadPDF = forwardRef((props, ref) => {
         </div>
         <div className="flex flex-col gap-4">
           <div>
-            <p className="text-gray-400">{notesLabel}</p>
-            <p>{notes}</p>
+            {notes?.trim() && (
+              <>
+                <p className="text-gray-400">{notesLabel}</p>
+                <p>{notes}</p>
+              </>
+            )}
           </div>
           <div>
-            <p className="text-gray-400">{termsLabel}</p>
-            <p>{terms}</p>
+            {terms?.trim() !== "" && (
+              <>
+                <p className="text-gray-400">{termsLabel}</p>
+                <p>{terms}</p>
+              </>
+            )}
           </div>
         </div>
       </div>

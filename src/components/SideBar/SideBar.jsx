@@ -28,8 +28,7 @@ const SideBar = () => {
     invoice?.invoiceDate === "" ||
     invoice?.form === "";
 
-  const paidAmount =
-    Number(billing.balanceDue) !== 0 ? invoice.invoiceDueDate === "" : false;
+  const paidAmount = Number(billing.amountPaid) > Number(billing?.total);
   const [showDraft, setShowDraft] = useState(false);
   const defaultInvoice = JSON.parse(localStorage.getItem("invoice"));
   const defaultBillig = JSON.parse(localStorage.getItem("billing"));
